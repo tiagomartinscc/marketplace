@@ -1,5 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar'
+import { GluestackUIProvider } from '@gluestack-ui/themed'
 
 import { 
   useFonts,
@@ -10,14 +10,18 @@ import {
   Poppins_400Regular,
 } from '@expo-google-fonts/poppins'
 
+import { config } from './config/gluestack-ui.config'
+import { Login } from '@screens/Login'
+import { Loading } from '@components/Loading'
+
 export default function App() {
   const [ fontsLoaded ] = useFonts({Inter_700Bold, Poppins_400Regular})
 
   return (
-    <View>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <GluestackUIProvider config={config} >
       <StatusBar style="auto" />
-    </View>
+      {fontsLoaded ? <Login /> : <Loading />}
+    </GluestackUIProvider>
   );
 }
 
