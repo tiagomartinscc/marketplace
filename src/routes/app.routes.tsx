@@ -27,13 +27,13 @@ export function AppRoutes() {
   return (
     <Navigator screenOptions={{
       headerShown: false,
-      tabBarShowLabel: false,
       tabBarActiveTintColor: tokens.colors.orangeBase,
       tabBarInactiveTintColor: tokens.colors.gray100,
+      tabBarShowLabel: true,
       tabBarStyle: {
         backgroundColor: tokens.colors.white,
         borderTopWidth: 0,
-        height: Platform.OS === 'android' ? 'auto' : 96,
+        height: Platform.OS === 'android' ? 80 : 98,
         paddingBottom: tokens.space['12'],
         paddingTop: tokens.space['2'],
       }
@@ -42,6 +42,7 @@ export function AppRoutes() {
         name="home"
         component={Home}
         options={{
+          tabBarLabel: "Home",
           tabBarIcon: ({color}) => <UserSvg fill={color} width={iconSize} height={iconSize} />
         }}
       />
@@ -49,6 +50,7 @@ export function AppRoutes() {
         name="profile"
         component={Profile}
         options={{
+          tabBarLabel: "Perfil",
           tabBarIcon: ({color}) => <ProductsSvg fill={color} width={iconSize} height={iconSize} />
         }}
       />
