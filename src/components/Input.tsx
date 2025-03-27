@@ -22,11 +22,11 @@ function getIcon(icon: InputTypeIconProps, isInvalid: boolean) {
   }
 
   if (icon === 'mail') {
-    return <Icon color={color} as={Mail} />
+    return <Icon color={color} as={Mail} size='sm' />
   }
 
   if (icon === 'key-round') {
-    return <Icon color={color} as={KeyRound} />
+    return <Icon color={color} as={KeyRound} size='sm'/>
   }  
 }
 
@@ -103,6 +103,7 @@ export function Input ({
             <InputIcon
               as={showPassword ? EyeIcon : EyeOffIcon}
               color="$gray200"
+              size='sm'
             />
             </InputSlot>        
           )

@@ -56,7 +56,7 @@ export function Login() {
     contentContainerStyle={{ flexGrow: 1}}
     showsVerticalScrollIndicator={false}
   >
-    <VStack flex={1} bgColor="$shape">
+    <VStack flex={1} bgColor="$white">
       <Header 
         title="Acesse sua conta"
         subtitle="Informe seu e-mail e senha para entrar"
@@ -104,7 +104,7 @@ export function Login() {
         />
       </VStack>
       <VStack px="$10" pb="$16">
-        <Text>Ainda não tem uma conta?</Text>
+        <Text mb='$3' >Ainda não tem uma conta?</Text>
         <Button 
           title="Cadastrar"
           variant="outline"
