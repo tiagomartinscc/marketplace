@@ -8,11 +8,10 @@ Desafio de criar um app de marketplace utiliznado React Native.
 
 A aplicação deve conter as seguintes funcionalidades abertas a todos os usuários:
 
-[ ] Deve ser possível realizar upload de imagem.
+- [ ] Deve ser possível realizar upload de imagem.
+- [ ]  Deve ser possível realizar upload de imagem.
 
-[ ] Deve ser possível realizar upload de imagem.
-
-[ ] Deve ser possível se autenticar na aplicação.
+- [ ] Deve ser possível se autenticar na aplicação.
 
 Tendo sucesso em se autenticar na aplicação, temos os seguintes requisitos:
 

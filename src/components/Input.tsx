@@ -11,14 +11,29 @@ import {
   Icon
 } from '@gluestack-ui/themed'
 
-import { Mail, KeyRound, EyeIcon, EyeOffIcon } from 'lucide-react-native'
+import { 
+  Mail, 
+  KeyRound, 
+  EyeIcon,
+  EyeOffIcon,
+  User,
+  Phone
+} from 'lucide-react-native'
 
-export type InputTypeIconProps = 'mail' | 'key-round'
+export type InputTypeIconProps = 'mail' | 'key-round' | 'user' | 'phone'
 
 function getIcon(icon: InputTypeIconProps, isInvalid: boolean) {
   let color = '$gray300'
   if (isInvalid) {
     color = '$danger'
+  }
+
+  if (icon === 'user') {
+    return <Icon color={color} as={User} size='sm' />
+  }
+  
+  if (icon === 'phone') {
+    return <Icon color={color} as={Phone} size='sm' />
   }
 
   if (icon === 'mail') {

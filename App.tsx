@@ -12,6 +12,8 @@ import {
 
 import { config } from './config/gluestack-ui.config'
 import { Login } from '@screens/Login'
+import { Register } from '@screens/Register'
+
 import { Loading } from '@components/Loading'
 
 export default function App() {
@@ -20,7 +22,7 @@ export default function App() {
   return (
     <GluestackUIProvider config={config} >
       <StatusBar style="auto" />
-      {fontsLoaded ? <Login /> : <Loading />}
+      {fontsLoaded ? <Register /> : <Loading />}
     </GluestackUIProvider>
   );
 }
