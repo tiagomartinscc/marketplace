@@ -7,6 +7,7 @@ import {
   Poppins_400Regular,
 } from '@expo-google-fonts/poppins'
 
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 import { GluestackUIProvider } from '@gluestack-ui/themed'
 import { config } from './config/gluestack-ui.config'
@@ -19,10 +20,12 @@ export default function App() {
   const [ fontsLoaded ] = useFonts({Inter_700Bold, Poppins_400Regular})
 
   return (
-    <GluestackUIProvider config={config} >
-      <StatusBar style="auto" />
-      {fontsLoaded ? <Routes /> : <Loading />}
-    </GluestackUIProvider>
+    <SafeAreaProvider style={{ flex: 1 }}>
+      <GluestackUIProvider config={config} >
+        <StatusBar style="auto" />
+        {fontsLoaded ? <Routes /> : <Loading />}
+      </GluestackUIProvider>
+    </SafeAreaProvider>
   );
 }
 
