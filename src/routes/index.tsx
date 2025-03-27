@@ -3,7 +3,7 @@ import { gluestackUIConfig } from '../../config/gluestack-ui.config'
 import { Box } from '@gluestack-ui/themed'
 
 import { AuthRoutes } from './auth.routes'
-// import { AppRoutes } from './app.routes'
+import { AppRoutes } from './app.routes'
 
 // import { useAuth } from '@hooks/useAuth'
 import { Loading } from '@components/Loading'
@@ -22,7 +22,7 @@ export function Routes() {
     <Box flex={1} bg="$shapeBackground">
       <NavigationContainer theme={theme}>
         {/* {user.id ? <AppRoutes /> : <AuthRoutes />} */}
-        <AuthRoutes />
+        <AppRoutes />
       </NavigationContainer>
     </Box>
   )
