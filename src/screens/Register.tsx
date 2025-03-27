@@ -1,14 +1,15 @@
-import { useState } from "react";
-import { VStack, ScrollView, Text } from "@gluestack-ui/themed";
+import { useState } from "react"
+import { VStack, ScrollView, Text } from "@gluestack-ui/themed"
+import { useNavigation } from '@react-navigation/native'
 
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form"
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { Header } from "@components/Header";
-import { Input } from "@components/Input";
-import { Button } from "@components/Button";
-import { Bold } from "lucide-react-native";
+import { Header } from "@components/Header"
+import { Input } from "@components/Input"
+import { Button } from "@components/Button"
+import { AuthNavigatorRoutesProps } from "@routes/auth.routes"
 
 type FormDataProps = {
   name: string
@@ -28,7 +29,9 @@ const signInSchema = yup.object({
 
 export function Register() {
   const [isLoading, setIsLoading] = useState(false)
-
+  
+  const navigator = useNavigation<AuthNavigatorRoutesProps>()
+  
   const { control, handleSubmit, formState: {errors} } = useForm<FormDataProps>({
     resolver: yupResolver(signInSchema)
   })
@@ -55,7 +58,8 @@ export function Register() {
     }
   }
 
-  function handleLogin( ) {
+  function handleLogin() {
+    navigator.navigate('login')
   }
 
   return (

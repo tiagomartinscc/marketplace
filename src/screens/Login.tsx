@@ -1,13 +1,15 @@
-import { useState } from "react";
-import { VStack, ScrollView, Text } from "@gluestack-ui/themed";
+import { useState } from "react"
+import { VStack, ScrollView, Text } from "@gluestack-ui/themed"
+import { useNavigation } from '@react-navigation/native'
 
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form"
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { AuthNavigatorRoutesProps } from "@routes/auth.routes"
 
-import { Header } from "@components/Header";
-import { Input } from "@components/Input";
-import { Button } from "@components/Button";
+import { Header } from "@components/Header"
+import { Input } from "@components/Input"
+import { Button } from "@components/Button"
 
 type FormDataProps = {
   email: string
@@ -21,6 +23,7 @@ const signInSchema = yup.object({
 
 export function Login() {
   const [isLoading, setIsLoading] = useState(false)
+  const navigator = useNavigation<AuthNavigatorRoutesProps>()
 
   const { control, handleSubmit, formState: {errors} } = useForm<FormDataProps>({
     resolver: yupResolver(signInSchema)
@@ -49,6 +52,7 @@ export function Login() {
   }
 
   function handleRegister( ) {
+    navigator.navigate('register')
   }
 
   return (
