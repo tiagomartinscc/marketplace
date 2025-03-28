@@ -42,8 +42,8 @@ export function AppRoutes() {
         name="home"
         component={Home}
         options={{
-          tabBarLabel: "Home",
-          tabBarIcon: ({color}) => <UserSvg fill={color} width={iconSize} height={iconSize} />
+          tabBarLabel: "Produtos",
+          tabBarIcon: ({color}) => <ProductsSvg fill={color} width={iconSize} height={iconSize} />
         }}
       />
       <Screen
@@ -51,7 +51,7 @@ export function AppRoutes() {
         component={Profile}
         options={{
           tabBarLabel: "Perfil",
-          tabBarIcon: ({color}) => <ProductsSvg fill={color} width={iconSize} height={iconSize} />
+          tabBarIcon: ({color}) => <UserSvg fill={color} width={iconSize} height={iconSize} />
         }}
       />
     </Navigator>
