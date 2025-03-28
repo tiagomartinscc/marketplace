@@ -156,7 +156,7 @@ export function Profile() {
 
         <Controller 
           control={control}
-          name="passwordConfirmation"
+          name="newPassword"
           render={({field: {onChange, value}}) => (            
             <Input 
               label="Nova Senha"
