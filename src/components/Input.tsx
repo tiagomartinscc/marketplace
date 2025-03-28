@@ -17,16 +17,21 @@ import {
   EyeIcon,
   EyeOffIcon,
   User,
-  Phone
+  Phone,
+  Search
 } from 'lucide-react-native'
 
-export type InputTypeIconProps = 'mail' | 'key-round' | 'user' | 'phone'
+export type InputTypeIconProps = 'mail' | 'key-round' | 'user' | 'phone' | 'search'
 
 function getIcon(icon: InputTypeIconProps, isInvalid: boolean) {
   let color = '$gray300'
   if (isInvalid) {
     color = '$danger'
   }
+
+  if (icon === 'search') {
+    return <Icon color={color} as={Search} size='md' />
+  }  
 
   if (icon === 'user') {
     return <Icon color={color} as={User} size='sm' />
@@ -46,7 +51,7 @@ function getIcon(icon: InputTypeIconProps, isInvalid: boolean) {
 }
 
 type Props = ComponentProps<typeof InputField> & {
-  label: string
+  label?: string
   icon?: InputTypeIconProps
   errorMessage?: string | null
   isInvalid?: boolean
@@ -54,7 +59,7 @@ type Props = ComponentProps<typeof InputField> & {
 }
 
 export function Input ({
-  label,
+  label = '',
   icon,
   secureTextEntry,
   isReadOnly = false, 
@@ -71,16 +76,18 @@ export function Input ({
   }  
 
   return (
-    <FormControl isInvalid={invalid} w="$full" mb="$4">
-      <Text 
-        textTransform='uppercase'
-        fontFamily='$heading'
-        color='$gray300'
-        fontSize="$xs"
-        fontWeight="$normal"
-      >
-        {label}
-      </Text>
+    <FormControl isInvalid={invalid} mb="$4" w="$full">
+      { label && 
+          <Text 
+            textTransform='uppercase'
+            fontFamily='$heading'
+            color='$gray300'
+            fontSize="$xs"
+            fontWeight="$normal"
+          >
+          {label}
+        </Text>
+      }
       <GluestackInput 
         isInvalid={invalid}
         h="$12"
@@ -114,7 +121,6 @@ export function Input ({
         {
           secureTextEntry  && (
             <InputSlot pr="$3" onPress={handleState}>
-            {/* EyeIcon, EyeOffIcon are both imported from 'lucide-react-native' */}
             <InputIcon
               as={showPassword ? EyeIcon : EyeOffIcon}
               color="$gray200"
@@ -124,7 +130,6 @@ export function Input ({
           )
         }
       </GluestackInput>
-      {secureTextEntry}
       <FormControlError>
         <FormControlErrorText color='$red500'>
           {errorMessage}
