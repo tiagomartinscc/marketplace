@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Input } from "@components/Input"
 import { Button } from "@components/Button"
 import { useState } from "react"
+import { useAuth } from "@hooks/useAuth"
 
 type FormDataProps = {
   name: string
@@ -30,6 +31,7 @@ const profileSchema = yup.object({
 
 export function Profile() {
   const [isLoading, setIsLoading] = useState(false)
+  const { signOut } = useAuth()
   const navigator = useNavigation<AppNavigatorRoutesProps>()
 
   const { control, handleSubmit, formState: {errors} } = useForm<FormDataProps>({
@@ -40,8 +42,8 @@ export function Profile() {
     navigator.goBack()
   }
 
-  function handleLogout() {
-    navigator.goBack()
+  async function handleLogout() {
+    await signOut()
   }
 
   function handleGoBack() {

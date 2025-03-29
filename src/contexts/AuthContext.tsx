@@ -20,6 +20,10 @@ type AuthContextProviderProps = {
   children: ReactNode
 }
 
+type ResponseProfileProps = {
+  seller: SellerDTO
+}
+
 export function AuthContextProvider({children}: AuthContextProviderProps) {
   const [seller, setSeller] = useState<SellerDTO>({} as SellerDTO)
   const [isLogged, setIsLogged] = useState(false)
@@ -38,6 +42,8 @@ export function AuthContextProvider({children}: AuthContextProviderProps) {
         tokenApiUpdate(data.accessToken)
         setIsLogged(true)
         await storageAuthTokenSave(data.accessToken)
+
+        await getProfile()
       }
     } catch(error) {
       throw error
@@ -48,9 +54,9 @@ export function AuthContextProvider({children}: AuthContextProviderProps) {
 
   async function getProfile() {
     try {
-      const {data} = await api.get<SellerDTO>('/sellers/me')
-      setSeller(data)
-      return data
+      const {data} = await api.get<ResponseProfileProps>('/sellers/me')
+      setSeller(data.seller)
+      return data.seller
     } catch(error) {
       throw error
     } finally {
@@ -80,6 +86,7 @@ export function AuthContextProvider({children}: AuthContextProviderProps) {
       if (accessToken) {
         setIsLogged(true)
         tokenApiUpdate(accessToken)
+        await getProfile()
       }
     } catch (error) {
       throw error

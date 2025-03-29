@@ -3,10 +3,13 @@ import { TouchableOpacity } from "react-native"
 import { ArrowRight } from 'lucide-react-native'
 import { useNavigation } from '@react-navigation/native'
 import { AppNavigatorRoutesProps } from "@routes/app.routes"
+import { useAuth } from "@hooks/useAuth"
 
 
 export function HeaderUser() {
   const navigator = useNavigation<AppNavigatorRoutesProps>()
+  const { seller } = useAuth()
+  console.log('seller', seller)
   function handleProfile() {
     navigator.navigate('profile')
   }
@@ -15,7 +18,9 @@ export function HeaderUser() {
     <HStack>
       <Text>Foto</Text>
       <VStack ml="$6">
-        <Text fontSize="$md" fontWeight="$bold" fontFamily="$heading" mb="$3">Olá, Tiago</Text>
+        <Text fontSize="$md" fontWeight="$bold" fontFamily="$heading" mb="$3">
+          Olá, {seller.name}
+        </Text>
         <TouchableOpacity onPress={handleProfile}>
           <HStack gap="$3">
             <Text color="$orangeBase">Ver perfil</Text>
