@@ -16,6 +16,8 @@ import { Routes } from '@routes/index'
 
 import { Loading } from '@components/Loading'
 
+import { AuthContextProvider } from '@contexts/AuthContext'
+
 export default function App() {
   const [ fontsLoaded ] = useFonts({Inter_700Bold, Poppins_400Regular})
 
@@ -23,7 +25,9 @@ export default function App() {
     <SafeAreaProvider style={{ flex: 1 }}>
       <GluestackUIProvider config={config} >
         <StatusBar style="auto" />
+        <AuthContextProvider>
         {fontsLoaded ? <Routes /> : <Loading />}
+        </AuthContextProvider>
       </GluestackUIProvider>
     </SafeAreaProvider>
   );

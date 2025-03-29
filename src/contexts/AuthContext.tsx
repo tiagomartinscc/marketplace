@@ -44,7 +44,7 @@ export function AuthContextProvider({children}: AuthContextProviderProps) {
 
   async function signIn(email: string, password:string) {
     try {
-      const {data} = await api.post('/sessions', {email, password})
+      const {data} = await api.post('/sellers/sessions', {email, password})
 
       if(data.user && data.token && data.refresh_token) {
         setIsLoadingUserStorageData(true)

@@ -1,15 +1,18 @@
 import { useState } from "react"
-import { VStack, ScrollView, Text } from "@gluestack-ui/themed"
+import { VStack, ScrollView, Text, useToast } from "@gluestack-ui/themed"
 import { useNavigation } from '@react-navigation/native'
 
 import { Controller, useForm } from "react-hook-form"
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AuthNavigatorRoutesProps } from "@routes/auth.routes"
+import { useAuth } from "@hooks/useAuth"
+import { AppError } from "@utils/AppError"
 
 import { Header } from "@components/Header"
 import { Input } from "@components/Input"
 import { Button } from "@components/Button"
+import { ToastMessage } from "@components/ToastMessage"
 
 type FormDataProps = {
   email: string
@@ -23,6 +26,8 @@ const signInSchema = yup.object({
 
 export function Login() {
   const [isLoading, setIsLoading] = useState(false)
+  const { signIn } = useAuth()
+  const toast = useToast()
   const navigator = useNavigation<AuthNavigatorRoutesProps>()
 
   const { control, handleSubmit, formState: {errors} } = useForm<FormDataProps>({
@@ -32,22 +37,23 @@ export function Login() {
   async function handleSignIn({email, password}: FormDataProps) {
     try {
       setIsLoading(true)
-      console.log(email, password)
-      // await signIn(email, password);
+      console.log('antes do sign in')
+      await signIn(email, password);
     } catch(error) {
       setIsLoading(false)
-      // const isAppError = error instanceof AppError
-      // const title = isAppError ? error.message : 'Não foi possível entrar. Tente novamente mais tarde'
-      // toast.show({
-      //   placement: 'top',
-      //   render: ({id}) => (
-      //     <ToastMessage
-      //       id={id}
-      //       title={title}
-      //       action="error"
-      //       onClose={() => toast.close(id)}
-      //   /> )
-      // })      
+      const isAppError = error instanceof AppError
+      console.log(error)
+      const title = isAppError ? error.message : 'Não foi possível entrar. Tente novamente mais tarde'
+      toast.show({
+        placement: 'top',
+        render: ({id}) => (
+          <ToastMessage
+            id={id}
+            title={title}
+            action="error"
+            onClose={() => toast.close(id)}
+        /> )
+      })      
     }
   }
 
