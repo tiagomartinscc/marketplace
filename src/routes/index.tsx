@@ -9,7 +9,8 @@ import { useAuth } from '@hooks/useAuth'
 import { Loading } from '@components/Loading'
 
 export function Routes() {
-  const { user, isLoadingUserStorageData } = useAuth()
+  const { isLogged, isLoadingUserStorageData } = useAuth()
+  // console.log('isLogged', isLogged)
   
   const theme = DefaultTheme
   theme.colors.background = gluestackUIConfig.tokens.colors.shapeBackground
@@ -21,7 +22,7 @@ export function Routes() {
   return (
     <Box flex={1} bg="$shapeBackground">
       <NavigationContainer theme={theme}>
-        {user && user.id ? <AppRoutes /> : <AuthRoutes />}
+        {isLogged ? <AppRoutes /> : <AuthRoutes />}
       </NavigationContainer>
     </Box>
   )

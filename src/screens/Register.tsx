@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { VStack, ScrollView, Text } from "@gluestack-ui/themed"
+import { VStack, ScrollView, Text, useToast } from "@gluestack-ui/themed"
 import { useNavigation } from '@react-navigation/native'
 
 import { Controller, useForm } from "react-hook-form"
@@ -10,6 +10,10 @@ import { Header } from "@components/Header"
 import { Input } from "@components/Input"
 import { Button } from "@components/Button"
 import { AuthNavigatorRoutesProps } from "@routes/auth.routes"
+import { api } from "@services/api"
+import { useAuth } from "@hooks/useAuth"
+import { AppError } from "@utils/AppError"
+import { ToastMessage } from "@components/ToastMessage"
 
 type FormDataProps = {
   name: string
@@ -19,9 +23,9 @@ type FormDataProps = {
   passwordConfirmation: string
 }
 
-const signInSchema = yup.object({
-  name: yup.string().required('Informe o nome.').email('Nome inválido'),
-  phone: yup.string().required('Informe o telefone.').email('Telefone inválido'),
+const registerSchema = yup.object({
+  name: yup.string().required('Informe o nome.'),
+  phone: yup.string().required('Informe o telefone.'),
   email: yup.string().required('Informe o e-mail.').email('E-mail inválido'),
   password: yup.string().required('Informe seua senha.'),
   passwordConfirmation: yup.string().required('Informe a confirmação da senha.')
@@ -29,32 +33,43 @@ const signInSchema = yup.object({
 
 export function Register() {
   const [isLoading, setIsLoading] = useState(false)
-  
+  const { signIn } = useAuth()
+  const toast = useToast()
+ 
   const navigator = useNavigation<AuthNavigatorRoutesProps>()
   
   const { control, handleSubmit, formState: {errors} } = useForm<FormDataProps>({
-    resolver: yupResolver(signInSchema)
+    resolver: yupResolver(registerSchema)
   })
 
-  async function handleRegister({email, password}: FormDataProps) {
+  async function handleRegister({name, phone, email, password, passwordConfirmation}: FormDataProps) {
     try {
       setIsLoading(true)
-      console.log(email, password)
-      // await signIn(email, password);
+      await api.post('/sellers', {
+        name,
+        phone,
+        email,
+        password,
+        passwordConfirmation
+      })      
+
+      await signIn(email, password);
     } catch(error) {
       setIsLoading(false)
-      // const isAppError = error instanceof AppError
-      // const title = isAppError ? error.message : 'Não foi possível entrar. Tente novamente mais tarde'
-      // toast.show({
-      //   placement: 'top',
-      //   render: ({id}) => (
-      //     <ToastMessage
-      //       id={id}
-      //       title={title}
-      //       action="error"
-      //       onClose={() => toast.close(id)}
-      //   /> )
-      // })      
+      const isAppError = error instanceof AppError
+      const title = isAppError ? 
+        error.message : 
+        'Não foi possível criar a conta. Tente novamente mais tarde.'
+      toast.show({
+        placement: 'top',
+        render: ({id}) => (
+          <ToastMessage
+            id={id}
+            title={title}
+            action="error"
+            onClose={() => toast.close(id)}
+        /> )
+      })      
     }
   }
 

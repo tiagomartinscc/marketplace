@@ -37,12 +37,11 @@ export function Login() {
   async function handleSignIn({email, password}: FormDataProps) {
     try {
       setIsLoading(true)
-      console.log('antes do sign in')
       await signIn(email, password);
     } catch(error) {
       setIsLoading(false)
-      const isAppError = error instanceof AppError
       console.log(error)
+      const isAppError = error instanceof AppError
       const title = isAppError ? error.message : 'Não foi possível entrar. Tente novamente mais tarde'
       toast.show({
         placement: 'top',
