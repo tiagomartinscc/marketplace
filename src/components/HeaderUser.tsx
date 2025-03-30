@@ -9,7 +9,6 @@ import { useAuth } from "@hooks/useAuth"
 export function HeaderUser() {
   const navigator = useNavigation<AppNavigatorRoutesProps>()
   const { seller } = useAuth()
-  console.log('seller', seller)
   function handleProfile() {
     navigator.navigate('profile')
   }
