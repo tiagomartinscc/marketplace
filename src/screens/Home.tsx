@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react"
 import { useFocusEffect } from '@react-navigation/native'
 
-import { VStack, ScrollView, Text, useToast } from "@gluestack-ui/themed"
+import { VStack, Text, useToast, Box } from "@gluestack-ui/themed"
 
 import { HeaderUser } from "@components/HeaderUser"
 import { Search } from "@components/Search"
@@ -10,6 +10,8 @@ import { api } from "@services/api"
 import { ProductDTO } from "@dtos/ProductDTO"
 import { AppError } from "@utils/AppError"
 import { ToastMessage } from "@components/ToastMessage"
+import { FlatList } from "react-native"
+import { Loading } from "@components/Loading"
 
 type ResponseProducts = {
   products: ProductDTO[]
@@ -24,7 +26,7 @@ export function Home() {
     try {
       setIsLoading(true)
       const {data} = await api.get<ResponseProducts>('/products/me')
-      console.log(data)
+      console.log(data.products)
       setProducts(data.products)
     } catch (error) {
       const isAppError = error instanceof AppError
@@ -49,7 +51,7 @@ export function Home() {
   }, []))  
 
   return (
-    <ScrollView bgColor="$white">
+    <VStack bgColor="$white" flex={1}>
       <VStack mt="$10">
         <VStack px="$10">
           <HeaderUser />
@@ -58,14 +60,22 @@ export function Home() {
         </VStack>
       </VStack>
 
-      <VStack flex={1} py="$4" px="$10" pb="$16" bgColor="$shapeBackground">
-        <Product 
-          title="Sofá"
-          priceInCents={234589}
-          image="https://images.colombo.com.br/produtos/942896/942896_S079Chumbo_03_g.jpg?ims=550x550"
-        />
+      <VStack flex={1} py="$4" px="$1" height="$full" bgColor="$shapeBackground">
+        {isLoading ? <Loading /> : (
+          <FlatList
+            data={products}
+            keyExtractor={product => product.id}
+            numColumns={2} // Define 2 colunas
+            renderItem={({ item }) => (
+              // <Text>{item.title}</Text>
+              <Product data={item} />
+            )}
+            columnWrapperStyle={{ justifyContent: 'space-between' }} // Ajusta o espaçamento entre colunas
+            contentContainerStyle={{ paddingBottom: 16 }}
+          />
+        )}
       </VStack>
 
-    </ScrollView>
+    </VStack>
   )
 }

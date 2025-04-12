@@ -9,27 +9,26 @@ Desafio de criar um app de marketplace utiliznado React Native.
 A aplicação deve conter as seguintes funcionalidades abertas a todos os usuários:
 
 - [ ] Deve ser possível realizar upload de imagem.
-- [ ]  Deve ser possível realizar upload de imagem.
 
-- [ ] Deve ser possível se autenticar na aplicação.
+- [X] Deve ser possível se autenticar na aplicação.
 
 Tendo sucesso em se autenticar na aplicação, temos os seguintes requisitos:
 
-[ ] Deve ser exibida uma página de Listagem de produtos, mostrando as seguintes informações de cada um deles: imagem, título e preço.
+- [X] Deve ser exibida uma página de Listagem de produtos, mostrando as seguintes informações de cada um deles: imagem, título e preço.
 
-[ ] Deve ser possível filtrar a lista de produtos pelo campo de texto Pesquisa e pelo modal passando um valor inicial e/ou um valor máximo, ou por sua categoria.
+- [ ] Deve ser possível filtrar a lista de produtos pelo campo de texto Pesquisa e pelo modal passando um valor inicial e/ou um valor máximo, ou por sua categoria.
 
-[ ] Os filtros aplicados na pesquisa ou no modal serão aplicados no estado que armazena a lista de produtos.
+- [ ] Os filtros aplicados na pesquisa ou no modal serão aplicados no estado que armazena a lista de produtos.
 
-[ ] Deve ser possível listar e atualizar os dados do usuário.
+- [X] Deve ser possível listar e atualizar os dados do usuário.
 
-[ ] A atualização de senha deve passar, assim como no cadastro, por uma confirmação ao atualizar.
+- [ ] A atualização de senha deve passar, assim como no cadastro, por uma confirmação ao atualizar.
 
-[ ] Deve ser possível listar os dados de um produto específico: imagem, título, preço, descrição, categoria e métrica de visualização nos últimos 7 dias.
+- [X] Deve ser possível listar os dados de um produto específico: imagem, título, preço, descrição, categoria e métrica de visualização nos últimos 7 dias.
 
-[ ] Deve ser possível entrar em contato com o vendedor via Whatsapp.
+- [ ] Deve ser possível entrar em contato com o vendedor via Whatsapp.
 
-[ ] Deve ser possível se deslogar da aplicação.
+- [X] Deve ser possível se deslogar da aplicação.
 
 ## Conceitos que serão praticados:
 
